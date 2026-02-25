@@ -2,6 +2,15 @@ document.getElementById('sentiment-form').addEventListener('submit', async (e) =
     e.preventDefault();
     const text = document.getElementById('input-text').value;
 
+    if (!/[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ]/.test(text)) {
+        alert('Enter at least one word.');
+        return;
+    }
+    if (text.length > 5000) {
+        alert('Text must be 5000 characters or fewer.');
+        return;
+    }
+
     try {
         const response = await fetch('/predict', {
             method: 'POST',
